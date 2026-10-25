@@ -1,0 +1,10 @@
+{
+  "name": "bookshelf-dom",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Rak bacaan pribadi dengan JavaScript DOM dan localStorage.",
+  "scripts": { "test": "node --test tests/books.test.js", "test:browser": "node tests/browser.mjs" },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "playwright": "1.64.1" }
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rak bacaan pribadi dengan pencarian dan penyimpanan di browser.">
+  <title>Buka Buku | Rak bacaan pribadi</title>
+  <link rel="icon" href="assets/img/book.png">
+  <link rel="stylesheet" href="src/style/style.css">
+  <script type="module" src="src/script/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#shelves">Lewati ke rak buku</a>
+  <header class="masthead wrap">
+    <img src="assets/img/book.png" width="100" height="100" alt="Buka Buku">
+    <div><h1>Rak bacaan pribadi</h1><p>Catat buku yang ingin dibaca. Kembali saat satu cerita selesai.</p></div>
+  </header>
+  <main class="wrap">
+    <noscript><p class="notice">Aktifkan JavaScript untuk menambah dan menyimpan buku.</p></noscript>
+    <section id="storage-warning" class="notice" aria-label="Penyimpanan browser" hidden>
+      <p id="storage-message"></p>
+      <div class="actions">
+        <button id="retry-save" type="button" hidden>Coba simpan lagi</button>
+        <button id="download-raw" type="button" hidden>Unduh data asli</button>
+        <button id="download-current" type="button">Unduh rak saat ini</button>
+        <button id="replace-storage" type="button" hidden>Ganti data rusak</button>
+        <button id="reload-storage" type="button" hidden>Muat data tersimpan</button>
+      </div>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite">Memuat rak buku…</p>
+    <div class="workspace">
+      <section class="entry-panel" aria-labelledby="form-title">
+        <h2 id="form-title">Tambahkan buku</h2>
+        <form id="book-form">
+          <label for="title">Judul</label>
+          <input id="title" name="title" required maxlength="200" autocomplete="off">
+          <label for="author">Penulis</label>
+          <input id="author" name="author" required maxlength="160" autocomplete="off">
+          <div class="form-pair">
+            <div><label for="year">Tahun terbit</label><input id="year" name="year" type="number" min="1" max="9999" step="1" required></div>
+            <div><label for="category">Kategori</label><select id="category" name="category" required>
+              <option value="">Pilih kategori</option><option>Politik</option><option>Petualangan</option><option>Komedi</option><option>Anak-anak</option><option>Horor</option><option>Misteri</option><option>Romantis</option><option>Thriller</option><option>Sejarah</option><option>Lainnya</option>
+            </select></div>
+          </div>
+          <label for="image">URL sampul <span class="optional">(opsional)</span></label>
+          <input id="image" name="image" type="url" maxlength="2048" placeholder="https://…" aria-describedby="image-help">
+          <p id="image-help" class="hint">Gunakan URL HTTP atau HTTPS. Gambar dimuat dari alamat yang kamu masukkan.</p>
+          <label class="check"><input id="is-complete" name="isComplete" type="checkbox"> Sudah selesai dibaca</label>
+          <p id="form-error" class="error" role="alert" hidden></p>
+          <div class="actions"><button class="primary" id="save-book" type="submit">Tambahkan ke rak</button><button id="cancel-edit" type="button" hidden>Batal edit</button></div>
+        </form>
+        <p class="storage-note">Rak tersimpan di browser dan alamat situs ini. Unduh salinan sebelum membersihkan data browser.</p>
+        <button id="export-books" type="button">Unduh rak sebagai JSON</button>
+      </section>
+      <section id="shelves" class="shelves" aria-labelledby="shelf-title" tabindex="-1">
+        <div class="shelf-intro"><h2 id="shelf-title">Buku kamu</h2><p id="count-summary">0 buku</p></div>
+        <form id="search-form" class="search" role="search">
+          <label for="query">Cari judul atau penulis</label>
+          <div><input id="query" type="search" maxlength="200" autocomplete="off"><button class="primary" type="submit">Cari</button><button id="clear-search" type="button" hidden>Hapus pencarian</button></div>
+        </form>
+        <p id="search-summary" class="hint" aria-live="polite"></p>
+        <div class="shelf-columns">
+          <section class="shelf" aria-labelledby="unread-title"><h3 id="unread-title">Belum selesai <span id="unread-count">0</span></h3><div id="unread-books"></div></section>
+          <section class="shelf" aria-labelledby="read-title"><h3 id="read-title">Selesai dibaca <span id="read-count">0</span></h3><div id="read-books"></div></section>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="wrap">Buka Buku · Latihan DOM JavaScript dengan data milikmu sendiri.</footer>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <h2 id="confirm-title"></h2><p id="confirm-text"></p>
+    <form method="dialog" class="actions"><button value="cancel" autofocus>Batal</button><button id="confirm-action" value="confirm" class="danger">Lanjutkan</button></form>
+  </dialog>
+</body>
+</html>
